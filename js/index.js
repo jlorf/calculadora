@@ -1,6 +1,6 @@
 function botons(b){
   //alert(b.value);
-  if(b.value !== '=') {
+  if(b.value !== '=' && b.value !== 'C') {
     var text = document.getElementById("calculadora").value;
     text += b.value;
     document.getElementById("calculadora").value = text;
@@ -13,5 +13,7 @@ function botons(b){
     } catch(error){
         alert(error);
     }
+  }else if(b.value === 'C') {
+      document.getElementById("calculadora").value = '';
   }
 }
