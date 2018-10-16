@@ -17,7 +17,7 @@
   <div class="container-fluid">
     <h1 class="display-3">Calculadora</h1>
     <div class="row">
-    <div class="col col-sm-2"><input type="text" id="calculadora" style="width: 100%; margin-right: 10px;" oninput="comprovar_input(this)"/></div>
+    <div class="col col-sm-2"><input type="text" id="calculadora" style="text-align: right; width: 100%; margin-right: 10px;" onkeyup="executar_operacions(event, this)" oninput="comprovar_input(this)"/></div>
     <div class="col col-sm-1"><button class="btn btn-danger" value="C" onclick="botons(this)">C</button><br/></div>
     </div>
     <button type="button" class="btn btn-dark" value="7" onclick="botons(this)">7</button>
@@ -34,7 +34,7 @@
     <button type="button" class="btn btn-dark" value="2" onclick="botons(this)">2</button>
     <button type="button" class="btn btn-dark" value="3" onclick="botons(this)">3</button>
     <button type="button" class="btn btn-dark" value="." onclick="botons(this)">.</button>
-    <button type="button" class="btn btn-dark" value="=" onclick="botons(this)">=</button><br />
+    <button type="button" class="btn btn-dark" value="=" id="resultat" onclick="botons(this)">=</button><br />
     <button type="button" class="btn btn-dark" value="0" onclick="botons(this)">0</button>
   </div>
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script> <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script> <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>

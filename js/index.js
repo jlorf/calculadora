@@ -2,15 +2,18 @@ function botons(b){
   //alert(b.value);
   if(b.value !== '=' && b.value !== 'C') {
     var text = document.getElementById("calculadora").value;
-    text += b.value;
+    if (text != 'Infinity' || text != '∞') text += b.value;
+    else text = b.value;
     document.getElementById("calculadora").value = text;
     comprovar_input(document.getElementById("calculadora"));
     //alert(text);
   } else if(b.value === '=') {
     try{
+      debugger;
       var text = document.getElementById("calculadora").value;
       var res = eval(text);
-      document.getElementById("calculadora").value = res;
+      if(res != 'Infinity') document.getElementById("calculadora").value = res;
+      else document.getElementById("calculadora").value = "∞"
     } catch(error){
         alert(error);
     }
@@ -40,8 +43,15 @@ function comprovar_input(input){
     debugger;
     for (var i=0; i<array.length; i++){
       if(array[i].length >= 5) {
-        alert("Operand: " + i+1 + " Més de 5 caracters.");
+        alert("Operand: " + (i+1) + " Més de 5 caracters.");
       }
     }
+  }
+}
+
+function executar_operacions(event, input) {
+  if (event.keyCode === 13) {
+    // Trigger the button element with a click
+    document.getElementById("resultat").click();
   }
 }
