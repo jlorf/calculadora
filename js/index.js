@@ -1,52 +1,57 @@
-function botons(b){
+var maxLength = 5;
+var valors = [];
+var valor = 0;
+function botons(b) {
   //alert(b.value);
-  if(b.value !== '=' && b.value !== 'C') {
+  if (b.value !== '=' && b.value !== 'C' && b.value !== '_') {
     var text = document.getElementById("calculadora").value;
-    if (text != 'Infinity' || text != '∞') text += b.value;
+    if (text != 'Infinity') text += b.value;
     else text = b.value;
     document.getElementById("calculadora").value = text;
-    comprovar_input(document.getElementById("calculadora"));
-    //alert(text);
-  } else if(b.value === '=') {
-    try{
+  } else if (b.value === '=') {
+    try {
       debugger;
       var text = document.getElementById("calculadora").value;
-      var res = eval(text);
-      if(res != 'Infinity') document.getElementById("calculadora").value = res;
-      else document.getElementById("calculadora").value = "∞"
-    } catch(error){
-        alert(error);
+      var array = text.split("+").join(",").split("*").join(",").split("/").join(",").split("-");
+      array.forEach(function(item){
+        var arr = item.split(',');
+        arr.forEach(function(it){
+          valors.push(it);
+        })
+      })
+      //valors = array[0].split(',');
+      var comprovat = comprovar_valors();
+      var res = ((comprovat === 0) ? eval(text) : text);
+      //var res = eval(text);
+      document.getElementById("calculadora").value = res;
+    } catch (error) {
+      alert(error);
     }
-  }else if(b.value === 'C') {
-      document.getElementById("calculadora").value = '';
+  } else if (b.value === 'C') {
+    document.getElementById("calculadora").value = '';
+  } else if (b.value === '_'){
+    var text = document.getElementById("calculadora").value;
+    document.getElementById("calculadora").value = text.substr(0, text.length -1);
   }
 }
 
-function comprovar_input(input){
-  var array = [];
-  var val = input.value;
-  var simbolMes = val.indexOf('+') > 0;
-  var simbolMenys = val.indexOf('-') > 0;
-  var simbolDiv = val.indexOf('+') > 0;
-  var simbolMult = val.indexOf('-') > 0;
-  if (simbolMes) {
-      array = val.split('+');
-  } else if (simbolMenys) {
-      array = val.split('+');
-  } else if (simbolDiv) {
-      array = val.split('/');
-  } else if (simbolMult) {
-      array = val.split('*');
-  }
-
-  if (typeof array != "undefined" && array != null && array.length != null && array.length > 0 && array.length > 1) {
-    debugger;
-    for (var i=0; i<array.length; i++){
-      if(array[i].length >= 5) {
-        alert("Operand: " + (i+1) + " Més de 5 caracters.");
-      }
+function comprovar_valors() {
+  var res = [];
+  for(var i = 0; i<valors.length; i++){
+    var val = valors[i];
+    if (val.length > maxLength) {
+      res.push(i);
     }
   }
+  if (res.length > 0) {
+    var text = "";
+    res.forEach(function(item){
+      text += "Operand: " + (item + 1) + " Més de " + maxLength + " caracters.\n";
+    })
+    debugger;
+    alert(text);
+    return 1;
+  } else return 0;
 }
 
 function executar_operacions(event, input) {
