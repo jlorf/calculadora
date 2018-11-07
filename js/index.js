@@ -24,11 +24,16 @@ function botons(b) {
       var res = ((comprovat === 0) ? eval(text) : text);
       //var res = eval(text);
       document.getElementById("calculadora").value = res;
+      var errors = (res === text) ? document.getElementById("errors").innerText: '';
+      document.getElementById("errors").innerText = errors;
+      //valors = (res === text) ? []: valors;
+      valors = [];
     } catch (error) {
-      alert(error);
+      document.getElementById("errors").innerText = JSON.stringify(error);
     }
   } else if (b.value === 'C') {
     document.getElementById("calculadora").value = '';
+    document.getElementById("errors").innerText = '';
   } else if (b.value === '_'){
     var text = document.getElementById("calculadora").value;
     document.getElementById("calculadora").value = text.substr(0, text.length -1);
@@ -49,7 +54,7 @@ function comprovar_valors() {
       text += "Operand: " + (item + 1) + " Més de " + maxLength + " caracters.\n";
     })
     debugger;
-    alert(text);
+    document.getElementById("errors").innerText = text;
     return 1;
   } else return 0;
 }
