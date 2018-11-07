@@ -1,4 +1,4 @@
-var maxLength = 5;
+const maxLength = 5;
 var valors = [];
 var valor = 0;
 function botons(b) {
@@ -65,3 +65,7 @@ function executar_operacions(event, input) {
     document.getElementById("resultat").click();
   }
 }
+
+$(document).ready(function() {
+    document.getElementById("data").valueAsDate = new Date();
+});
