@@ -45,22 +45,18 @@ function botons(b) {
 }
 
 function comprovar_valors() {
-  var res = [];
+  var text = "";
+  var ret = false;
   for(var i = 0; i<valors.length; i++){
     var val = valors[i];
     if (val.length > maxLength) {
-      res.push(i);
+      ret = true;
+      text += "Operand: " + (i + 1) + " Més de " + maxLength + " caracters.\n";
     }
   }
-  if (res.length > 0) {
-    var text = "";
-    res.forEach(function(item){
-      text += "Operand: " + (item + 1) + " Més de " + maxLength + " caracters.\n";
-    })
-    debugger;
-    document.getElementById("errors").innerText = text;
-    return 1;
-  } else return 0;
+  document.getElementById("errors").innerText = text;
+  if (ret) return 1;
+  return 0;
 }
 
 function executar_operacions(event, input) {
