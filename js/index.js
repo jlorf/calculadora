@@ -10,7 +10,6 @@ function botons(b) {
     document.getElementById("calculadora").value = text;
   } else if (b.value === '=') {
     try {
-      debugger;
       var text = document.getElementById("calculadora").value;
       var array = text.split("+").join(",").split("*").join(",").split("/").join(",").split("-");
       array.forEach(function(item){
@@ -22,6 +21,11 @@ function botons(b) {
       //valors = array[0].split(',');
       var comprovat = comprovar_valors();
       var res = ((comprovat === 0) ? eval(text) : text);
+      debugger;
+      if (res === Infinity) {
+        document.getElementById("errors").innerText = JSON.stringify("El resultat és infinit.");
+        res = text;
+      } else if (res === undefined) res = "";
       //var res = eval(text);
       document.getElementById("calculadora").value = res;
       var errors = (res === text) ? document.getElementById("errors").innerText: '';

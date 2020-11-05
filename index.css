@@ -1,0 +1,39 @@
+div #calculadora {
+    text-align: right;
+    width: 100%;
+    margin-right: 10px;
+    font-size: 2vw!important;
+}
+
+button {
+    font-size: 2vw!important;
+    width: 4vw;
+    height: 4vw;
+    margin-bottom: 1vw;
+    margin-right: 1vw;
+    padding: unset!important;
+}
+
+label {
+    font-size: 2vw!important;
+}
+
+input {
+    font-size: 2vw!important;
+}
+
+h4 {
+    font-size: 3vw!important;
+}
+
+p {
+    font-size: 1.5vw!important;
+}
+
+h1 {
+    font-size: 5vw!important;
+}
+
+body {
+    min-width: 576px;
+}

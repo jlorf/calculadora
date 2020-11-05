@@ -8,6 +8,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel="stylesheet" href="index.css">
   <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
   <script src="./js/index.js"></script>
 
@@ -16,9 +17,9 @@
 <body>
   <div class="container-fluid">
     <h1 class="display-3">Calculadora</h1>
-    <div class="row" style="max-height: 40px;">
-    <div class="col col-sm-2"><input type="text" id="calculadora" style="text-align: right; width: 100%; margin-right: 10px;" onkeyup="executar_operacions(event, this)" oninput="comprovar_input(this)"/></div>
-    <div class="col col-sm-2"><button type="button" class="btn btn-dark" value="_" onclick="botons(this)" style="width: 50px;height: 40px;margin-right: 10px;">CE</button><button class="btn btn-danger" value="C" onclick="botons(this)" style="width: 40px; height: 40px;">C</button><br/></div>
+    <div class="row" style="max-height: fit-content;">
+    <div class="col col-sm-2"><input type="text" id="calculadora" onkeyup="executar_operacions(event, this)" oninput="comprovar_input(this)"/></div>
+    <div class="col col-sm-2"><button type="button" class="btn btn-dark" value="_" onclick="botons(this)">CE</button><button class="btn btn-danger" value="C" onclick="botons(this)">C</button><br/></div>
     <div class="row">
       <div>
         <label for="data">Data:</label>
@@ -28,22 +29,22 @@
     </div>
     </div>
 
-    <button type="button" class="btn btn-dark" value="1" onclick="botons(this)" style="width: 40px; height: 40px;">1</button>
-    <button type="button" class="btn btn-dark" value="2" onclick="botons(this)" style="width: 40px; height: 40px;">2</button>
-    <button type="button" class="btn btn-dark" value="3" onclick="botons(this)" style="width: 40px; height: 40px;">3</button>
-    <button type="button" class="btn btn-dark" value="-" onclick="botons(this)" style="width: 40px; height: 40px;">-</button><br />
-    <button type="button" class="btn btn-dark" value="4" onclick="botons(this)" style="width: 40px; height: 40px;">4</button>
-    <button type="button" class="btn btn-dark" value="5" onclick="botons(this)" style="width: 40px; height: 40px;">5</button>
-    <button type="button" class="btn btn-dark" value="6" onclick="botons(this)" style="width: 40px; height: 40px;">6</button>
-    <button type="button" class="btn btn-dark" value="+" onclick="botons(this)" style="width: 40px; height: 40px;">+</button><br />
-    <button type="button" class="btn btn-dark" value="7" onclick="botons(this)" style="width: 40px; height: 40px;">7</button>
-    <button type="button" class="btn btn-dark" value="8" onclick="botons(this)" style="width: 40px; height: 40px;">8</button>
-    <button type="button" class="btn btn-dark" value="9" onclick="botons(this)" style="width: 40px; height: 40px;">9</button>
-    <button type="button" class="btn btn-dark" value="/" onclick="botons(this)" style="width: 40px; height: 40px;">/</button><br />
-    <button type="button" class="btn btn-dark" value="0" onclick="botons(this)" style="width: 40px; height: 40px;">0</button>
-    <button type="button" class="btn btn-dark" value="." onclick="botons(this)" style="width: 40px; height: 40px;">.</button>
-    <button type="button" class="btn btn-dark" value="*" onclick="botons(this)" style="width: 40px; height: 40px;">x</button>
-    <button type="button" class="btn btn-dark" value="=" id="resultat" onclick="botons(this)" style="width: 40px; height: 40px;">=</button><br />
+    <button type="button" class="btn btn-dark" value="1" onclick="botons(this)">1</button>
+    <button type="button" class="btn btn-dark" value="2" onclick="botons(this)">2</button>
+    <button type="button" class="btn btn-dark" value="3" onclick="botons(this)">3</button>
+    <button type="button" class="btn btn-dark" value="-" onclick="botons(this)">-</button><br />
+    <button type="button" class="btn btn-dark" value="4" onclick="botons(this)">4</button>
+    <button type="button" class="btn btn-dark" value="5" onclick="botons(this)">5</button>
+    <button type="button" class="btn btn-dark" value="6" onclick="botons(this)">6</button>
+    <button type="button" class="btn btn-dark" value="+" onclick="botons(this)">+</button><br />
+    <button type="button" class="btn btn-dark" value="7" onclick="botons(this)">7</button>
+    <button type="button" class="btn btn-dark" value="8" onclick="botons(this)">8</button>
+    <button type="button" class="btn btn-dark" value="9" onclick="botons(this)">9</button>
+    <button type="button" class="btn btn-dark" value="/" onclick="botons(this)">/</button><br />
+    <button type="button" class="btn btn-dark" value="0" onclick="botons(this)">0</button>
+    <button type="button" class="btn btn-dark" value="." onclick="botons(this)">.</button>
+    <button type="button" class="btn btn-dark" value="*" onclick="botons(this)">x</button>
+    <button type="button" class="btn btn-dark" value="=" id="resultat" onclick="botons(this)">=</button><br />
 
   </div>
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script> <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script> <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
