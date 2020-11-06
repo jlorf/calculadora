@@ -18,7 +18,7 @@
   <div class="container-fluid">
     <h1 class="display-3">Calculadora</h1>
     <div class="row" style="max-height: fit-content;">
-    <div class="col col-sm-2"><input type="text" id="calculadora" onkeyup="executar_operacions(event, this)" oninput="comprovar_input(this)"/></div>
+    <div class="col col-sm-2"><input type="text" id="calculadora" onkeyup="executar_operacions(event, this)" oninput="comprovar_input(event, this)"/></div>
     <div class="col col-sm-2"><button type="button" class="btn btn-dark" value="_" onclick="botons(this)">CE</button><button class="btn btn-danger" value="C" onclick="botons(this)">C</button><br/></div>
     <div class="row">
       <div>
