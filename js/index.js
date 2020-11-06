@@ -4,7 +4,18 @@ let valors = [];
 let valor = 0;
 function botons(b) {
   //alert(b.value);
-  if (b.value !== '=' && b.value !== 'C' && b.value !== '_') {
+  if (b.value === "cos" || b.value === "sin" || b.value === "tan" || b.value === "cosh" || b.value === "sinh" || b.value === "tanh") {
+    let text = document.getElementById("calculadora").value;
+    let regex = /\d{1,}\.?\d*$/gi
+    regex.lastIndex = 0;
+    let match = regex.exec(text);
+    if (match !== null){
+      let val = match.values().next().value;
+      text = text.replace(regex, (b.value + "(" + val + ")"));
+      document.getElementById("calculadora").value = text;
+    }
+  }
+  else if (b.value !== '=' && b.value !== 'C' && b.value !== '_') {
     let text = document.getElementById("calculadora").value;
     if (text != 'Infinity') text += b.value;
     else text = b.value;
@@ -24,7 +35,7 @@ function botons(b) {
 function FerCalculs(text) {
   try {
     let text = document.getElementById("calculadora").value;
-    let array = text.split("+").join(",").split("*").join(",").split("/").join(",").split("-").join(",").split("cos").join(",").split("cosh").join(",").split("sin").join(",").split("sinh").join(",").split("tan").join(",").split("tanh");
+    let array = text.toLowerCase().split("+").join(",").split("*").join(",").split("/").join(",").split("-").join(",").split("cos").join(",").split("cosh").join(",").split("sin").join(",").split("sinh").join(",").split("tan").join(",").split("tanh");
     array.forEach(function (item) {
       let arr = item.replace("(", "").replace(")", "").split(',');
       arr.forEach(function (it) {
