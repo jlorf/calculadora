@@ -94,7 +94,7 @@ function CalcularValor(text) {
   //matches
   let matchcos = regexcos.exec(text);
   let matchcosh = regexcosh.exec(text);
-  let matchsin = regexsinh.exec(text);
+  let matchsin = regexsin.exec(text);
   let matchsinh = regexsinh.exec(text);
   let matchtan = regextan.exec(text);
   let matchtanh = regextanh.exec(text);
@@ -119,7 +119,7 @@ function CalcularValor(text) {
       regex.lastIndex = 0;
       let match = regex.exec(valorcosh.value);
       valor = Math.cosh(match.values().next().value);
-      text = text.replace(regexcos, valor);
+      text = text.replace(regexcosh, valor);
     }
   } 
 
@@ -131,7 +131,7 @@ function CalcularValor(text) {
       regex.lastIndex = 0;
       let match = regex.exec(valorsin.value);
       valor = Math.sin(match.values().next().value);
-      text = text.replace(regexcos, valor);
+      text = text.replace(regexsin, valor);
     }
   } 
   
@@ -143,7 +143,7 @@ function CalcularValor(text) {
       regex.lastIndex = 0;
       let match = regex.exec(valorsinh.value);
       valor = Math.sinh(match.values().next().value);
-      text = text.replace(regexcos, valor);
+      text = text.replace(regexsinh, valor);
     }
   } 
   
@@ -155,19 +155,19 @@ function CalcularValor(text) {
       regex.lastIndex = 0;
       let match = regex.exec(valortan.value);
       valor = Math.tan(match.values().next().value);
-      text = text.replace(regexcos, valor);
+      text = text.replace(regextan, valor);
     }
   } 
 
   if (matchtanh !== null)
   {
-    regex.lastIndex = 0;
     let valortanh = matchtanh.values().next();
     if (valortanh != null)
     {
+      regex.lastIndex = 0;
       let match = regex.exec(valortanh.value);
       valor = Math.tanh(match.values().next().value);
-      text = text.replace(regexcos, valor);
+      text = text.replace(regextanh, valor);
     }
   }
 
