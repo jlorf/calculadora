@@ -97,39 +97,53 @@ function CalcularValor(text) {
   let matchsinh = regexsinh.exec(text);
   let matchtan = regextan.exec(text);
   let matchtanh = regextanh.exec(text);
-  debugger;
+
   let valorcos = matchcos.values().next();
   if (valorcos != null){
     let match = regex.exec(valorcos.value);
-    debugger;
+    valor = Math.cos(match.values().next().value);
+    text = text.replace(regexcos, valor);
+  
+  } 
+  let valorcosh = matchcosh.values().next();
+  if (valorcosh != null)
+  {
+    let match = regex.exec(valorcosh.value);
     valor = Math.cos(match.values().next().value);
     text = text.replace(regexcos, valor);
   } 
-  if (text.includes("cosh"))
+
+  let valorsin = matchsin.values().next();
+  if (valorsin != null)
   {
-    valor = Math.cosh(match.values().next().value);
-    text.replace(regexcosh, valor);
+    let match = regex.exec(valorsin.value);
+    valor = Math.cos(match.values().next().value);
+    text = text.replace(regexcos, valor);
   } 
-  if (text.includes("sin"))
+  
+  let valorsinh = matchsinh.values().next();
+  if (valorsinh != null)
   {
-    valor = Math.sin(match.values().next().value);
-    text.replace(regexsin, valor);
+    let match = regex.exec(valorsinh.value);
+    valor = Math.cos(match.values().next().value);
+    text = text.replace(regexcos, valor);
   } 
-  if (text.includes("sinh"))
+  
+  let valortan = matchtan.values().next();
+  if (valortan != null)
   {
-    valor = Math.sinh(match.values().next().value);
-    text.replace(regexsinh, valor);
+    let match = regex.exec(valortan.value);
+    valor = Math.cos(match.values().next().value);
+    text = text.replace(regexcos, valor);
   } 
-  if (text.includes("tan"))
+
+  let valortanh = matchtanh.values().next();
+  if (valortanh != null)
   {
-    valor = Math.tan(match.values().next().value);
-    text.replace(regextan, valor);
-  }
-  if (text.includes("tanh"))
-  {
-    valor = Math.tanh(match.values().next().value);
-    text.replace(regextanh, valor);
-  }
+    let match = regex.exec(valortanh.value);
+    valor = Math.cos(match.values().next().value);
+    text = text.replace(regexcos, valor);
+  } 
   valor = eval(text);
   return valor;
 }
