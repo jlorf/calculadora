@@ -1,4 +1,5 @@
 const maxLength = 5;
+var debug = false;
 var valors = [];
 var valor = 0;
 function botons(b) {
@@ -20,7 +21,7 @@ function botons(b) {
       })
       //valors = array[0].split(',');
       var comprovat = comprovar_valors();
-      var res = ((comprovat === 0) ? eval(text) : text);
+      var res = ((comprovat === 0) ? CalcularValor(text) : text);
       debugger;
       if (res === Infinity) {
         document.getElementById("errors").innerText = JSON.stringify("El resultat és infinit.");
@@ -45,6 +46,7 @@ function botons(b) {
 }
 
 function comprovar_valors() {
+  if (debug) return 0;
   var text = "";
   var ret = false;
   for(var i = 0; i<valors.length; i++){
@@ -64,6 +66,39 @@ function executar_operacions(event, input) {
     // Trigger the button element with a click
     document.getElementById("resultat").click();
   }
+}
+
+function CalcularValor(text) {
+  var valor = 0;
+  let regex = /\d+/g
+  let match = regex.exec(text);
+  if (text.includes("cos")){
+    debugger;
+    debugger;
+    valor = Math.cos(match.values().next().value);
+  } 
+  else if (text.includes("cosh"))
+  {
+    valor = Math.cosh(match.values().next().value);
+  } 
+  else if (text.includes("sin"))
+  {
+    valor = Math.sin(match.values().next().value);
+  } 
+  else if (text.includes("sinh"))
+  {
+    valor = Math.sinh(match.values().next().value);
+  } 
+  else if (text.includes("tan"))
+  {
+    valor = Math.tan(match.values().next().value);
+  }
+  else if (text.includes("tanh"))
+  {
+    valor = Math.tanh(match.values().next().value);
+  }
+  else valor = eval(text);
+  return valor;
 }
 
 $(document).ready(function() {
