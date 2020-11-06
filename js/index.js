@@ -26,7 +26,7 @@ function FerCalculs(text) {
     let text = document.getElementById("calculadora").value;
     let array = text.split("+").join(",").split("*").join(",").split("/").join(",").split("-").join(",").split("cos").join(",").split("cosh").join(",").split("sin").join(",").split("sinh").join(",").split("tan").join(",").split("tanh");
     array.forEach(function (item) {
-      let arr = item.split(',');
+      let arr = item.replace("(", "").replace(")", "").split(',');
       arr.forEach(function (it) {
         valors.push(it);
       });
