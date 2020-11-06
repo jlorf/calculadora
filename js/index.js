@@ -1,38 +1,39 @@
 const maxLength = 5;
-var debug = false;
-var valors = [];
-var valor = 0;
+let debug = false;
+let valors = [];
+let valor = 0;
 function botons(b) {
   //alert(b.value);
   if (b.value !== '=' && b.value !== 'C' && b.value !== '_') {
-    var text = document.getElementById("calculadora").value;
+    let text = document.getElementById("calculadora").value;
     if (text != 'Infinity') text += b.value;
     else text = b.value;
     document.getElementById("calculadora").value = text;
   } else if (b.value === '=') {
-    var text = FerCalculs(text);
+    let text = document.getElementById("calculadora").value;
+    text = FerCalculs(text);
   } else if (b.value === 'C') {
     document.getElementById("calculadora").value = '';
     document.getElementById("errors").innerText = '';
   } else if (b.value === '_'){
-    var text = document.getElementById("calculadora").value;
+    let text = document.getElementById("calculadora").value;
     document.getElementById("calculadora").value = text.substr(0, text.length -1);
   }
 }
 
 function FerCalculs(text) {
   try {
-    var text = document.getElementById("calculadora").value;
-    var array = text.split("+").join(",").split("*").join(",").split("/").join(",").split("-").join(",").split("cos").join(",").split("cosh").join(",").split("sin").join(",").split("sinh").join(",").split("tan").join(",").split("tanh");
+    let text = document.getElementById("calculadora").value;
+    let array = text.split("+").join(",").split("*").join(",").split("/").join(",").split("-").join(",").split("cos").join(",").split("cosh").join(",").split("sin").join(",").split("sinh").join(",").split("tan").join(",").split("tanh");
     array.forEach(function (item) {
-      var arr = item.split(',');
+      let arr = item.split(',');
       arr.forEach(function (it) {
         valors.push(it);
       });
     });
     //valors = array[0].split(',');
-    var comprovat = comprovar_valors();
-    var res = ((comprovat === 0) ? CalcularValor(text) : text);
+    let comprovat = comprovar_valors();
+    let res = ((comprovat === 0) ? CalcularValor(text) : text);
     debugger;
     if (res === Infinity) {
       document.getElementById("errors").innerText = JSON.stringify("El resultat és infinit.");
@@ -40,9 +41,9 @@ function FerCalculs(text) {
     }
     else if (res === undefined)
       res = "";
-    //var res = eval(text);
+    //let res = eval(text);
     document.getElementById("calculadora").value = res;
-    var errors = (res === text) ? document.getElementById("errors").innerText : '';
+    let errors = (res === text) ? document.getElementById("errors").innerText : '';
     document.getElementById("errors").innerText = errors;
     //valors = (res === text) ? []: valors;
     valors = [];
@@ -55,10 +56,10 @@ function FerCalculs(text) {
 
 function comprovar_valors() {
   if (debug) return 0;
-  var text = "";
-  var ret = false;
-  for(var i = 0; i<valors.length; i++){
-    var val = valors[i];
+  let text = "";
+  let ret = false;
+  for(let i = 0; i<valors.length; i++){
+    let val = valors[i];
     if (val.length > maxLength) {
       ret = true;
       text += "Operand: " + (i + 1) + " Més de " + maxLength + " caracters.\n";
@@ -81,15 +82,15 @@ function comprovar_input(event, input) {
 }
 
 function CalcularValor(text) {
-  var valor = 0;
+  let valor = 0;
   //regex
-  let regex = /\d+/g
-  let regexcos = /cos\(\d+\)/g
-  let regexcosh = /cosh\(\d+\)/g
-  let regexsin = /sin\(\d+\)/g
-  let regexsinh = /sinh\(\d+\)/g
-  let regextan = /tan\(\d+\)/g
-  let regextanh = /tanh\(\d+\)/g
+  let regex = /\d+/gi
+  let regexcos = /cos\(\d+\)/gi
+  let regexcosh = /cosh\(\d+\)/gi
+  let regexsin = /sin\(\d+\)/gi
+  let regexsinh = /sinh\(\d+\)/gi
+  let regextan = /tan\(\d+\)/gi
+  let regextanh = /tanh\(\d+\)/gi
   //matches
   let matchcos = regexcos.exec(text);
   let matchcosh = regexcosh.exec(text);
@@ -98,52 +99,78 @@ function CalcularValor(text) {
   let matchtan = regextan.exec(text);
   let matchtanh = regextanh.exec(text);
 
-  let valorcos = matchcos.values().next();
-  if (valorcos != null){
-    let match = regex.exec(valorcos.value);
-    valor = Math.cos(match.values().next().value);
-    text = text.replace(regexcos, valor);
-  
-  } 
-  let valorcosh = matchcosh.values().next();
-  if (valorcosh != null)
+  if (matchcos !== null)
   {
-    let match = regex.exec(valorcosh.value);
-    valor = Math.cos(match.values().next().value);
-    text = text.replace(regexcos, valor);
+    let valorcos = matchcos.values().next();
+    if (valorcos != null){
+      regex.lastIndex = 0;
+      let match = regex.exec(valorcos.value);
+      valor = Math.cos(match.values().next().value);
+      text = text.replace(regexcos, valor);
+    
+    } 
+  }
+
+  if (matchcosh !== null)
+  {
+    let valorcosh = matchcosh.values().next();
+    if (valorcosh != null)
+    {
+      regex.lastIndex = 0;
+      let match = regex.exec(valorcosh.value);
+      valor = Math.cosh(match.values().next().value);
+      text = text.replace(regexcos, valor);
+    }
   } 
 
-  let valorsin = matchsin.values().next();
-  if (valorsin != null)
+  if (matchsin !== null)
   {
-    let match = regex.exec(valorsin.value);
-    valor = Math.cos(match.values().next().value);
-    text = text.replace(regexcos, valor);
+    let valorsin = matchsin.values().next();
+    if (valorsin != null)
+    {
+      regex.lastIndex = 0;
+      let match = regex.exec(valorsin.value);
+      valor = Math.sin(match.values().next().value);
+      text = text.replace(regexcos, valor);
+    }
   } 
   
-  let valorsinh = matchsinh.values().next();
-  if (valorsinh != null)
+  if (matchsinh !== null)
   {
-    let match = regex.exec(valorsinh.value);
-    valor = Math.cos(match.values().next().value);
-    text = text.replace(regexcos, valor);
+    let valorsinh = matchsinh.values().next();
+    if (valorsinh != null)
+    {
+      regex.lastIndex = 0;
+      let match = regex.exec(valorsinh.value);
+      valor = Math.sinh(match.values().next().value);
+      text = text.replace(regexcos, valor);
+    }
   } 
   
-  let valortan = matchtan.values().next();
-  if (valortan != null)
+  if (matchtan !== null)
   {
-    let match = regex.exec(valortan.value);
-    valor = Math.cos(match.values().next().value);
-    text = text.replace(regexcos, valor);
+    let valortan = matchtan.values().next();
+    if (valortan != null)
+    {
+      regex.lastIndex = 0;
+      let match = regex.exec(valortan.value);
+      valor = Math.tan(match.values().next().value);
+      text = text.replace(regexcos, valor);
+    }
   } 
 
-  let valortanh = matchtanh.values().next();
-  if (valortanh != null)
+  if (matchtanh !== null)
   {
-    let match = regex.exec(valortanh.value);
-    valor = Math.cos(match.values().next().value);
-    text = text.replace(regexcos, valor);
-  } 
+    regex.lastIndex = 0;
+    let valortanh = matchtanh.values().next();
+    if (valortanh != null)
+    {
+      let match = regex.exec(valortanh.value);
+      valor = Math.tanh(match.values().next().value);
+      text = text.replace(regexcos, valor);
+    }
+  }
+
   valor = eval(text);
   return valor;
 }
