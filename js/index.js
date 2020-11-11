@@ -46,6 +46,8 @@ function botons(b) {
     let text = document.getElementById("calculadora").value;
     document.getElementById("calculadora").value = text.substr(0, text.length -1);
   }
+  let reg2 = /[.]{2,}/gi
+  document.getElementById("calculadora").value = document.getElementById("calculadora").value.replace(reg2, ".");
 }
 
 function FerCalculs(text) {
