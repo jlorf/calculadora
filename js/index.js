@@ -10,16 +10,32 @@ function botons(b) {
     regex.lastIndex = 0;
     let match = regex.exec(text);
     if (match !== null){
-      let val = match.values().next().value;
+      let val = match?.values().next().value;
       text = text.replace(regex, (b.value + "(" + val + ")"));
       document.getElementById("calculadora").value = text;
     }
   }
   else if (b.value !== '=' && b.value !== 'C' && b.value !== '_') {
-    let text = document.getElementById("calculadora").value;
-    if (text != 'Infinity') text += b.value;
-    else text = b.value;
-    document.getElementById("calculadora").value = text;
+    let input = document.getElementById("calculadora");
+    let text = input.value;
+    if (b.value === ".")
+    {
+      let start = input.selectionStart;
+      let valor = input.value.substr(0, start);
+      let regex = /\d{1,}\.?\d*$/gi
+      regex.lastIndex = 0;
+      let match = regex.exec(valor);
+      if (!match?.values().next().value.includes("."))
+      {
+        input.value = input.value.substr(0, start) + b.value + input.value.substr(start);
+      }
+    }
+    else 
+    {
+      if (text != 'Infinity') text += b.value;
+      else text = b.value;
+      document.getElementById("calculadora").value = text;
+    }
   } else if (b.value === '=') {
     let text = document.getElementById("calculadora").value;
     text = FerCalculs(text);
@@ -89,7 +105,31 @@ function executar_operacions(event, input) {
 }
 
 function comprovar_input(event, input) {
-  debugger;
+  if (event.data === ".")
+  {
+    let start = input.selectionStart;
+    let valor = input.value.substr(0, start - 1);
+    let regex = /\d{1,}\.?\d*$/gi
+    regex.lastIndex = 0;
+    let match = regex.exec(valor);
+    if (match?.values().next().value.includes("."))
+    {
+      input.value = input.value.substr(0, start - 1) + input.value.substr(start);
+    }
+  } 
+  else 
+  {
+    let reg = /[^0-9.]/gi
+    reg.lastIndex = 0;
+    let m = reg.exec(event.data ?? "");
+    if (m?.length > 0)
+    {
+      let start = input.selectionStart;
+      input.value = input.value.substr(0, start - 1) + input.value.substr(start);
+    }
+  }
+  let reg2 = /[.]{2,}/gi
+  input.value = input.value.replace(reg2, ".");
 }
 
 function CalcularValor(text) {
@@ -116,7 +156,7 @@ function CalcularValor(text) {
     if (valorcos != null){
       regex.lastIndex = 0;
       let match = regex.exec(valorcos.value);
-      valor = Math.cos(match.values().next().value);
+      valor = Math.cos(match?.values().next().value);
       text = text.replace(regexcos, valor);
     
     } 
@@ -129,7 +169,7 @@ function CalcularValor(text) {
     {
       regex.lastIndex = 0;
       let match = regex.exec(valorcosh.value);
-      valor = Math.cosh(match.values().next().value);
+      valor = Math.cosh(match?.values().next().value);
       text = text.replace(regexcosh, valor);
     }
   } 
@@ -141,7 +181,7 @@ function CalcularValor(text) {
     {
       regex.lastIndex = 0;
       let match = regex.exec(valorsin.value);
-      valor = Math.sin(match.values().next().value);
+      valor = Math.sin(match?.values().next().value);
       text = text.replace(regexsin, valor);
     }
   } 
@@ -153,7 +193,7 @@ function CalcularValor(text) {
     {
       regex.lastIndex = 0;
       let match = regex.exec(valorsinh.value);
-      valor = Math.sinh(match.values().next().value);
+      valor = Math.sinh(match?.values().next().value);
       text = text.replace(regexsinh, valor);
     }
   } 
@@ -165,7 +205,7 @@ function CalcularValor(text) {
     {
       regex.lastIndex = 0;
       let match = regex.exec(valortan.value);
-      valor = Math.tan(match.values().next().value);
+      valor = Math.tan(match?.values().next().value);
       text = text.replace(regextan, valor);
     }
   } 
@@ -177,7 +217,7 @@ function CalcularValor(text) {
     {
       regex.lastIndex = 0;
       let match = regex.exec(valortanh.value);
-      valor = Math.tanh(match.values().next().value);
+      valor = Math.tanh(match?.values().next().value);
       text = text.replace(regextanh, valor);
     }
   }
