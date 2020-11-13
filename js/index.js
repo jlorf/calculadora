@@ -4,14 +4,14 @@ let valors = [];
 let valor = 0;
 function botons(b) {
   //alert(b.value);
-  if (b.value === "cos" || b.value === "sin" || b.value === "tan" || b.value === "cosh" || b.value === "sinh" || b.value === "tanh") {
+  if (b.value === "cos" || b.value === "sin" || b.value === "tan" || b.value === "cosh" || b.value === "sinh" || b.value === "tanh" || b.value === "√") {
     let text = document.getElementById("calculadora").value;
     let regex = /\d{1,}\.?\d*$/gi
     regex.lastIndex = 0;
     let match = regex.exec(text);
     if (match !== null){
       let val = match?.values().next().value;
-      text = text.replace(regex, (b.value + "(" + val + ")"));
+      text = (b.value === "√") ? text.replace(regex, (b.value + val)) : text.replace(regex, (b.value + "(" + val + ")"));
       document.getElementById("calculadora").value = text;
     }
   }
@@ -46,8 +46,11 @@ function botons(b) {
     let text = document.getElementById("calculadora").value;
     document.getElementById("calculadora").value = text.substr(0, text.length -1);
   }
-  let reg2 = /[.]{2,}/gi
-  document.getElementById("calculadora").value = document.getElementById("calculadora").value.replace(reg2, ".");
+  let reg2 = /[.+*/-]{2,}/gi
+  document.getElementById("calculadora").value = document.getElementById("calculadora").value.replace(reg2, function(match,index,text) {
+    return match[0];
+    //return text.replace(match, match[0]);
+  });
 }
 
 function FerCalculs(text) {
@@ -107,14 +110,14 @@ function executar_operacions(event, input) {
 }
 
 function comprovar_input(event, input) {
-  if (event.data === ".")
+  if (event.data === "." || event.data === "/" || event.data === "*" || event.data === "-" || event.data === "+")
   {
     let start = input.selectionStart;
     let valor = input.value.substr(0, start - 1);
     let regex = /\d{1,}\.?\d*$/gi
     regex.lastIndex = 0;
     let match = regex.exec(valor);
-    if (match?.values().next().value.includes("."))
+    if (match?.values().next().value.includes(event.data))
     {
       input.value = input.value.substr(0, start - 1) + input.value.substr(start);
     }
@@ -130,8 +133,11 @@ function comprovar_input(event, input) {
       input.value = input.value.substr(0, start - 1) + input.value.substr(start);
     }
   }
-  let reg2 = /[.]{2,}/gi
-  input.value = input.value.replace(reg2, ".");
+  let reg2 = /[.+*/-]{2,}/gi
+  document.getElementById("calculadora").value = document.getElementById("calculadora").value.replace(reg2, function(match,index,text) {
+    return match[0];
+    //return text.replace(match, match[0]);
+  });
 }
 
 function CalcularValor(text) {
@@ -144,6 +150,7 @@ function CalcularValor(text) {
   let regexsinh = /sinh\(\d+\)/gi
   let regextan = /tan\(\d+\)/gi
   let regextanh = /tanh\(\d+\)/gi
+  let regexaq = /√\d+/gi
   //matches
   let matchcos = regexcos.exec(text);
   let matchcosh = regexcosh.exec(text);
@@ -151,6 +158,7 @@ function CalcularValor(text) {
   let matchsinh = regexsinh.exec(text);
   let matchtan = regextan.exec(text);
   let matchtanh = regextanh.exec(text);
+  let matchtaq = regexaq.exec(text);
 
   if (matchcos !== null)
   {
@@ -221,6 +229,18 @@ function CalcularValor(text) {
       let match = regex.exec(valortanh.value);
       valor = Math.tanh(match?.values().next().value);
       text = text.replace(regextanh, valor);
+    }
+  }
+
+  if (matchtaq !== null)
+  {
+    let valortaq = matchtaq.values().next();
+    if (valortaq != null)
+    {
+      regex.lastIndex = 0;
+      let match = regex.exec(valortaq.value);
+      valor = Math.sqrt(match?.values().next().value);
+      text = text.replace(regexaq, valor);
     }
   }
 
