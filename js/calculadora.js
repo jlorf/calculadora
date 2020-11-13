@@ -250,4 +250,9 @@ function CalcularValor(text) {
 
 $(document).ready(function() {
     document.getElementById("data").valueAsDate = new Date();
+    if(window.location.search === null || window.location.search === undefined || window.location.search === "" || window.location.search?.substring(1).split("cientifica=")[1] !== "true")
+    {
+      $(".especials").hide();
+      $(".cientifica").show();
+    } else $(".cientifica").hide();
 });

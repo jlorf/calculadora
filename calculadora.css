@@ -5,7 +5,7 @@ div #calculadora {
     font-size: 2vw!important;
 }
 
-button {
+button.btncal {
     font-size: 2vw!important;
     width: 4vw;
     height: 4vw;
@@ -20,6 +20,7 @@ button.especials {
 
 label {
     font-size: 2vw!important;
+    color: white;
 }
 
 input {
@@ -28,14 +29,17 @@ input {
 
 h4 {
     font-size: 3vw!important;
+    color: white;
 }
 
 p {
     font-size: 1.5vw!important;
+    color: white;
 }
 
 h1 {
     font-size: 5vw!important;
+    color: white;
 }
 
 body {
