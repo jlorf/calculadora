@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Calculadora</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel="stylesheet" href="calculadora.css">
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  <script src="./js/calculadora.js"></script>
+
+</head>
+
+<body style="background-color: black;">
+  <div class="container-fluid" style="margin-top: 10px">
+    <button type="button" class="btn btn-dark" value="1" onclick="window.history.back()">&larr;</button>
+    <a href="index.html" class="btn btn-dark">Index</a>
+    <a href="calculadora.html?cientifica=true" class="btn btn-dark cientifica">Calculadora cientifica</a>
+    <button type="button" class="btn btn-dark" value="2" onclick="window.history.forward()">&rarr;</button>
+    <h1 class="display-3">Calculadora</h1>
+    <div class="row" style="max-height: fit-content;">
+    <div class="col col-sm-4"><input type="text" id="calculadora" onkeyup="executar_operacions(event, this)" oninput="comprovar_input(event, this)"/></div>
+    <div class="col col-sm-2"><button type="button" class="btn btn-dark" value="_" onclick="botons(this)">CE</button><button class="btn btn-danger" value="C" onclick="botons(this)">C</button><br/></div>
+    <div class="row">
+      <div>
+        <label for="data">Data:</label>
+        <input type="date" class="alert alert-black" style="color: white; background-color: black;" id="data" disabled />
+      </div>
+      <div><h4>Errors</h4><p id="errors"></p></div>
+    </div>
+    </div>
+
+    <button type="button" class="btn btn-dark btncal" value="1" onclick="botons(this)">1</button>
+    <button type="button" class="btn btn-dark btncal" value="2" onclick="botons(this)">2</button>
+    <button type="button" class="btn btn-dark btncal" value="3" onclick="botons(this)">3</button>
+    <button type="button" class="btn btn-dark btncal" value="-" onclick="botons(this)">-</button>
+    <button type="button" class="btn btn-dark especials btncal" value="cos" onclick="botons(this)">COS()</button>
+    <button type="button" class="btn btn-dark especials btncal" value="cosh" onclick="botons(this)">COSH()</button>
+    <br />
+    
+    <button type="button" class="btn btn-dark btncal" value="4" onclick="botons(this)">4</button>
+    <button type="button" class="btn btn-dark btncal" value="5" onclick="botons(this)">5</button>
+    <button type="button" class="btn btn-dark btncal" value="6" onclick="botons(this)">6</button>
+    <button type="button" class="btn btn-dark btncal" value="+" onclick="botons(this)">+</button>
+    <button type="button" class="btn btn-dark especials btncal" value="sin" onclick="botons(this)">SIN()</button>
+    <button type="button" class="btn btn-dark especials btncal" value="sinh" onclick="botons(this)">SINH()</button>
+    <br />
+
+    <button type="button" class="btn btn-dark btncal" value="7" onclick="botons(this)">7</button>
+    <button type="button" class="btn btn-dark btncal" value="8" onclick="botons(this)">8</button>
+    <button type="button" class="btn btn-dark btncal" value="9" onclick="botons(this)">9</button>
+    <button type="button" class="btn btn-dark btncal" value="/" onclick="botons(this)">/</button>
+    <button type="button" class="btn btn-dark especials btncal" value="tan" onclick="botons(this)">TAN()</button>
+    <button type="button" class="btn btn-dark especials btncal" value="tanh" onclick="botons(this)">TANH()</button>    
+    <br />
+
+    <button type="button" class="btn btn-dark btncal" value="0" onclick="botons(this)">0</button>
+    <button type="button" class="btn btn-dark btncal" value="." onclick="botons(this)">.</button>
+    <button type="button" class="btn btn-dark btncal" value="*" onclick="botons(this)">x</button>
+    <button type="button" class="btn btn-dark btncal" value="=" id="resultat" onclick="botons(this)">=</button>
+    <button type="button" class="btn btn-dark especials btncal" value="√" onclick="botons(this)">√</button>    
+    <br />
+
+  </div>
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script> <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script> <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+
+</html>
