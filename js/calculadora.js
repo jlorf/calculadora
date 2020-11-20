@@ -25,7 +25,7 @@ function botons(b) {
       let regex = /\d{1,}\.?\d*$/gi
       regex.lastIndex = 0;
       let match = regex.exec(valor);
-      if (!match?.find(x=>x!==undefined).includes("."))
+      if (!match?.find(x=>x!==undefined)?.includes("."))
       {
         input.value = input.value.substr(0, start) + b.value + input.value.substr(start);
       }
@@ -47,7 +47,7 @@ function botons(b) {
     document.getElementById("calculadora").value = text.substr(0, text.length -1);
   }
   let reg2 = /[.+*/-]{2,}/gi
-  document.getElementById("calculadora").value = document.getElementById("calculadora").value.replace(reg2, function(match,index,text) {
+  document.getElementById("calculadora").value = document.getElementById("calculadora").value.replace(reg2, function(match,_index,text) {
     return match[0];
     //return text.replace(match, match[0]);
   });
@@ -250,7 +250,7 @@ function CalcularValor(text) {
 
 $(document).ready(function() {
     document.getElementById("data").valueAsDate = new Date();
-    if(window.location.search === null || window.location.search === undefined || window.location.search === "" || window.location.search?.substring(1).split("cientifica=")[1] !== "true")
+    if(window?.location?.search?.substring(1).split("cientifica=")[1] !== "true")
     {
       $(".especials").hide();
       $(".cientifica").show();
