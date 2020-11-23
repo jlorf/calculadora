@@ -47,6 +47,13 @@ function botons(b) {
     document.getElementById("calculadora").value = text.substr(0, text.length -1);
   }
   let reg2 = /[.+*/-]{2,}/gi
+  reg2.lastIndex = 0;
+  let matchoperadors = reg2.exec(document.getElementById("calculadora").value);
+  if (matchoperadors?.length > 0) {
+    let op = matchoperadors?.find(x=>x!==undefined);
+    document.getElementById("errors").innerText = JSON.stringify("El operador " + b.value + " no es pot posar aqui ("  + op + ")");
+  }
+  reg2.lastIndex = 0;
   document.getElementById("calculadora").value = document.getElementById("calculadora").value.replace(reg2, function(match,_index,text) {
     return match[0];
     //return text.replace(match, match[0]);
@@ -66,7 +73,7 @@ function FerCalculs(text) {
     //valors = array[0].split(',');
     let comprovat = comprovar_valors();
     let res = ((comprovat === 0) ? CalcularValor(text) : text);
-    debugger;
+    //debugger;
     if (res === Infinity) {
       document.getElementById("errors").innerText = JSON.stringify("El resultat és infinit.");
       res = text;
@@ -151,6 +158,7 @@ function CalcularValor(text) {
   let regextan = /tan\(\d+\)/gi
   let regextanh = /tanh\(\d+\)/gi
   let regexaq = /√\d+/gi
+  let regexpot = /\d{1,}\.?\d*\^\d{1,}\.?\d*/gi
   //matches
   let matchcos = regexcos.exec(text);
   let matchcosh = regexcosh.exec(text);
@@ -159,6 +167,7 @@ function CalcularValor(text) {
   let matchtan = regextan.exec(text);
   let matchtanh = regextanh.exec(text);
   let matchtaq = regexaq.exec(text);
+  let matchtpot = regexpot.exec(text);
 
   if (matchcos !== null)
   {
@@ -241,6 +250,30 @@ function CalcularValor(text) {
       let match = regex.exec(valortaq);
       valor = Math.sqrt(match?.find(x=>x!==undefined));
       text = text.replace(regexaq, valor);
+    }
+  }
+
+  if (matchtpot !== null)
+  {
+    let valorpot = matchtpot?.find(x=>x!==undefined)
+    if (valorpot != null)
+    {
+      regex.lastIndex = 0;
+      //let match = regex.exec(valorpot);
+      let num, pot;
+      let match;
+      let primer = true;
+      while ((match = regex.exec(valorpot)) != null) {
+        let val = match?.find(x=>x!==undefined);
+        if (primer) 
+        {
+          num = val;
+          primer = false;
+        }
+        else pot = val;
+      }
+      valor = Math.pow(num, pot);
+      text = text.replace(regexpot, valor);
     }
   }
 
