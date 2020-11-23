@@ -1,7 +1,7 @@
 const maxLength = 5;
 let debug = false;
-let valors = [];
-let valor = 0;
+var valors = [];
+var valor = 0;
 function botons(b) {
   //alert(b.value);
   if (b.value === "cos" || b.value === "sin" || b.value === "tan" || b.value === "cosh" || b.value === "sinh" || b.value === "tanh" || b.value === "√") {
@@ -10,7 +10,7 @@ function botons(b) {
     regex.lastIndex = 0;
     let match = regex.exec(text);
     if (match !== null){
-      let val = match?.values().next().value;
+      let val = match?.find(x=>x!==undefined);
       text = (b.value === "√") ? text.replace(regex, (b.value + val)) : text.replace(regex, (b.value + "(" + val + ")"));
       document.getElementById("calculadora").value = text;
     }
@@ -25,7 +25,7 @@ function botons(b) {
       let regex = /\d{1,}\.?\d*$/gi
       regex.lastIndex = 0;
       let match = regex.exec(valor);
-      if (!match?.values().next().value.includes("."))
+      if (!match?.find(x=>x!==undefined)?.includes("."))
       {
         input.value = input.value.substr(0, start) + b.value + input.value.substr(start);
       }
@@ -47,7 +47,14 @@ function botons(b) {
     document.getElementById("calculadora").value = text.substr(0, text.length -1);
   }
   let reg2 = /[.+*/-]{2,}/gi
-  document.getElementById("calculadora").value = document.getElementById("calculadora").value.replace(reg2, function(match,index,text) {
+  reg2.lastIndex = 0;
+  let matchoperadors = reg2.exec(document.getElementById("calculadora").value);
+  if (matchoperadors?.length > 0) {
+    let op = matchoperadors?.find(x=>x!==undefined);
+    document.getElementById("errors").innerText = JSON.stringify("El operador " + b.value + " no es pot posar aqui ("  + op + ")");
+  }
+  reg2.lastIndex = 0;
+  document.getElementById("calculadora").value = document.getElementById("calculadora").value.replace(reg2, function(match,_index,text) {
     return match[0];
     //return text.replace(match, match[0]);
   });
@@ -66,7 +73,7 @@ function FerCalculs(text) {
     //valors = array[0].split(',');
     let comprovat = comprovar_valors();
     let res = ((comprovat === 0) ? CalcularValor(text) : text);
-    debugger;
+    //debugger;
     if (res === Infinity) {
       document.getElementById("errors").innerText = JSON.stringify("El resultat és infinit.");
       res = text;
@@ -117,7 +124,7 @@ function comprovar_input(event, input) {
     let regex = /\d{1,}\.?\d*$/gi
     regex.lastIndex = 0;
     let match = regex.exec(valor);
-    if (match?.values().next().value.includes(event.data))
+    if (match?.find(x=>x!==undefined).includes(event.data))
     {
       input.value = input.value.substr(0, start - 1) + input.value.substr(start);
     }
@@ -151,6 +158,7 @@ function CalcularValor(text) {
   let regextan = /tan\(\d+\)/gi
   let regextanh = /tanh\(\d+\)/gi
   let regexaq = /√\d+/gi
+  let regexpot = /\d{1,}\.?\d*\^\d{1,}\.?\d*/gi
   //matches
   let matchcos = regexcos.exec(text);
   let matchcosh = regexcosh.exec(text);
@@ -159,14 +167,15 @@ function CalcularValor(text) {
   let matchtan = regextan.exec(text);
   let matchtanh = regextanh.exec(text);
   let matchtaq = regexaq.exec(text);
+  let matchtpot = regexpot.exec(text);
 
   if (matchcos !== null)
   {
-    let valorcos = matchcos.values().next();
+    let valorcos = matchcos?.find(x=>x!==undefined)
     if (valorcos != null){
       regex.lastIndex = 0;
-      let match = regex.exec(valorcos.value);
-      valor = Math.cos(match?.values().next().value);
+      let match = regex.exec(valorcos);
+      valor = Math.cos(match?.find(x=>x!==undefined));
       text = text.replace(regexcos, valor);
     
     } 
@@ -174,73 +183,97 @@ function CalcularValor(text) {
 
   if (matchcosh !== null)
   {
-    let valorcosh = matchcosh.values().next();
+    let valorcosh = matchcosh?.find(x=>x!==undefined)
     if (valorcosh != null)
     {
       regex.lastIndex = 0;
-      let match = regex.exec(valorcosh.value);
-      valor = Math.cosh(match?.values().next().value);
+      let match = regex.exec(valorcosh);
+      valor = Math.cosh(match?.find(x=>x!==undefined));
       text = text.replace(regexcosh, valor);
     }
   } 
 
   if (matchsin !== null)
   {
-    let valorsin = matchsin.values().next();
+    let valorsin = matchsin?.find(x=>x!==undefined)
     if (valorsin != null)
     {
       regex.lastIndex = 0;
-      let match = regex.exec(valorsin.value);
-      valor = Math.sin(match?.values().next().value);
+      let match = regex.exec(valorsin);
+      valor = Math.sin(match?.find(x=>x!==undefined));
       text = text.replace(regexsin, valor);
     }
   } 
   
   if (matchsinh !== null)
   {
-    let valorsinh = matchsinh.values().next();
+    let valorsinh = matchsinh?.find(x=>x!==undefined)
     if (valorsinh != null)
     {
       regex.lastIndex = 0;
-      let match = regex.exec(valorsinh.value);
-      valor = Math.sinh(match?.values().next().value);
+      let match = regex.exec(valorsinh);
+      valor = Math.sinh(match?.find(x=>x!==undefined));
       text = text.replace(regexsinh, valor);
     }
   } 
   
   if (matchtan !== null)
   {
-    let valortan = matchtan.values().next();
+    let valortan = matchtan?.find(x=>x!==undefined)
     if (valortan != null)
     {
       regex.lastIndex = 0;
-      let match = regex.exec(valortan.value);
-      valor = Math.tan(match?.values().next().value);
+      let match = regex.exec(valortan);
+      valor = Math.tan(match?.find(x=>x!==undefined));
       text = text.replace(regextan, valor);
     }
   } 
 
   if (matchtanh !== null)
   {
-    let valortanh = matchtanh.values().next();
+    let valortanh = matchtanh?.find(x=>x!==undefined)
     if (valortanh != null)
     {
       regex.lastIndex = 0;
-      let match = regex.exec(valortanh.value);
-      valor = Math.tanh(match?.values().next().value);
+      let match = regex.exec(valortanh);
+      valor = Math.tanh(match?.find(x=>x!==undefined));
       text = text.replace(regextanh, valor);
     }
   }
 
   if (matchtaq !== null)
   {
-    let valortaq = matchtaq.values().next();
+    let valortaq = matchtaq?.find(x=>x!==undefined)
     if (valortaq != null)
     {
       regex.lastIndex = 0;
-      let match = regex.exec(valortaq.value);
-      valor = Math.sqrt(match?.values().next().value);
+      let match = regex.exec(valortaq);
+      valor = Math.sqrt(match?.find(x=>x!==undefined));
       text = text.replace(regexaq, valor);
+    }
+  }
+
+  if (matchtpot !== null)
+  {
+    let valorpot = matchtpot?.find(x=>x!==undefined)
+    if (valorpot != null)
+    {
+      regex.lastIndex = 0;
+      //let match = regex.exec(valorpot);
+      let num, pot;
+      let match;
+      let primer = true;
+      while ((match = regex.exec(valorpot)) != null) {
+        let val = match?.find(x=>x!==undefined);
+        if (primer) 
+        {
+          num = val;
+          primer = false;
+        }
+        else pot = val;
+      }
+      valor = Math.pow(num, pot);
+      text = text.replace(regexpot, valor);
     }
   }
 
@@ -250,7 +283,7 @@ function CalcularValor(text) {
 
 $(document).ready(function() {
     document.getElementById("data").valueAsDate = new Date();
-    if(window.location.search === null || window.location.search === undefined || window.location.search === "" || window.location.search?.substring(1).split("cientifica=")[1] !== "true")
+    if(window?.location?.search?.substring(1).split("cientifica=")[1] !== "true")
     {
       $(".especials").hide();
       $(".cientifica").show();
