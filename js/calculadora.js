@@ -46,7 +46,7 @@ function botons(b) {
     let text = document.getElementById("calculadora").value;
     document.getElementById("calculadora").value = text.substr(0, text.length -1);
   }
-  let reg2 = /[.+*/-]{2,}/gi
+  let reg2 = /[\.+*/-]{2,}/gi
   reg2.lastIndex = 0;
   let matchoperadors = reg2.exec(document.getElementById("calculadora").value);
   if (matchoperadors?.length > 0) {
@@ -58,6 +58,9 @@ function botons(b) {
     return match[0];
     //return text.replace(match, match[0]);
   });
+
+  let reg3 = /(?<!\d+)\./gi
+  document.getElementById("calculadora").value = document.getElementById("calculadora").value.replace(reg3, "0.");
 }
 
 function FerCalculs(text) {
@@ -140,11 +143,15 @@ function comprovar_input(event, input) {
       input.value = input.value.substr(0, start - 1) + input.value.substr(start);
     }
   }
-  let reg2 = /[.+*/-]{2,}/gi
+  let reg2 = /[\.+*/-]{2,}/gi
   document.getElementById("calculadora").value = document.getElementById("calculadora").value.replace(reg2, function(match,index,text) {
     return match[0];
     //return text.replace(match, match[0]);
   });
+
+  let reg3 = /(?<!\d+)\./gi
+  document.getElementById("calculadora").value = document.getElementById("calculadora").value.replace(reg3, "0.");
+
 }
 
 function CalcularValor(text) {
