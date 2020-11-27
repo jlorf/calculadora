@@ -90,8 +90,14 @@ function FerCalculs(text) {
     //valors = (res === text) ? []: valors;
     valors = [];
   }
-  catch (error) {
-    document.getElementById("errors").innerText = JSON.stringify(error);
+  catch (error)
+  {
+    let json = "";
+    if (error?.message === "Invalid regular expression: missing /") json = JSON.stringify("L'operació no pot començar per /");
+    else if (error?.message === "Unexpected token '*'") json = JSON.stringify("L'operació no pot començar per x o *");
+    else if (error?.message === "Unexpected end of input") json = JSON.stringify("A l'operació li falta un operand.");
+    else json = JSON.stringify(error);
+    document.getElementById("errors").innerText = json;
   }
   return text;
 }
@@ -284,13 +290,23 @@ function CalcularValor(text) {
     }
   }
 
+  text = text.replace("x", "*");
+  text = text.replace(/-{2,}/gi, function(ma, ind, te)
+  {
+    return ma[0];
+  });
+
   valor = eval(text);
   return valor;
 }
 
 $(document).ready(function() {
     document.getElementById("data").valueAsDate = new Date();
-    if(window?.location?.search?.substring(1).split("cientifica=")[1] !== "true")
+    let vars = window?.location?.search?.substring(1).split("&");
+    let cientifica = vars.find(x=>x.includes("cientifica"));
+    let debugg = vars.find(x=>x.includes("debug"));
+    if(debugg?.split("debug=")[1] === "true") debug = true;
+    if(cientifica?.split("cientifica=")[1] !== "true")
     {
       $(".especials").hide();
       $(".cientifica").show();
