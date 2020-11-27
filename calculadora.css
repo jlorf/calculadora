@@ -45,3 +45,14 @@ h1 {
 body {
     min-width: 576px;
 }
+
+.row-esp
+{
+    margin-left: 10px!important;
+}
+
+.calcpos {
+    position: absolute; 
+    top: 290px; 
+    left: 50px;
+}
